@@ -1,10 +1,8 @@
-package ge.tbcacad.steps.common;
+package ge.tbcacad.steps.commonsteps;
 
-import com.codeborne.selenide.SelenideDriver;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
-import ge.tbcacad.pages.common.CommonPage;
+import ge.tbcacad.pages.commonpage.CommonPage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -37,7 +35,7 @@ public class CommonSteps {
     }
 
     @Step("go back to previous page")
-    public CommonSteps goBackwards(){
+    public CommonSteps goBackwards() {
         back();
         return this;
     }

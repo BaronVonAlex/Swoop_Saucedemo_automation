@@ -7,7 +7,7 @@ public class TnetLoginSteps {
     TnetLoginPage tnetLoginPage = new TnetLoginPage();
 
     @Step("Verify that we were taken on Tnet Auth page.")
-    public String getPageName(){
+    public String getPageName() {
         return tnetLoginPage.authText.getText();
     }
 }

@@ -13,13 +13,13 @@ public class SwoopHolidaySteps {
 
     SwoopHolidayPage swoopHolidayPage = new SwoopHolidayPage();
 
-    @Step("Choose low price range bound")
+    @Step("Choose low {0} price range bound")
     public SwoopHolidaySteps chooseLowerBound(String lowBound) {
         swoopHolidayPage.minRangePrice.scrollIntoView(false).sendKeys(lowBound);
         return this;
     }
 
-    @Step("Choose high price range bound")
+    @Step("Choose high {0} price range bound")
     public SwoopHolidaySteps chooseHigherBound(String highBound) {
         swoopHolidayPage.maxRangePrice.scrollIntoView(false).sendKeys(highBound);
         return this;
@@ -42,11 +42,11 @@ public class SwoopHolidaySteps {
         return SwoopOffersUtil.extractPricesFromElements(swoopHolidayPage.holidayOfferPrices);
     }
 
-    @Step("Check if all items are within price range")
+    @Step("Check if all items are within price range of {0}, {1}")
     public boolean priceRangeCheck(List<Double> prices, String lowerBound, String upperBound) {
         for (Double price : prices) {
             if (price < Double.parseDouble(lowerBound) || price > Double.parseDouble(upperBound)) {
-                System.out.println("Price that was out of Price range: " + price);
+                System.out.println("Price was out of filter range: " + price + " | Min Allowed - " + lowerBound + " | Max Allowed - " + upperBound);
                 return false;
             }
         }

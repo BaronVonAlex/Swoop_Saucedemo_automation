@@ -20,7 +20,7 @@ public class SwoopHomeSteps {
         return this;
     }
 
-    @Step("Click on cat school button")
+    @Step("Click on car school button")
     public SwoopHomeSteps clickOnCarSchool() {
         swoopHomePage.swoopCarSchoolButton.shouldBe(visible).click();
         return this;

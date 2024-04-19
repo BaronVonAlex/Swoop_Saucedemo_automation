@@ -1,4 +1,4 @@
-package ge.tbcacad.pages.common;
+package ge.tbcacad.pages.commonpage;
 
 import com.codeborne.selenide.SelenideElement;
 

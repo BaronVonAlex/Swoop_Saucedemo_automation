@@ -11,5 +11,6 @@ public class SwoopHomePage {
             swoopCategoryButton = $(".NewCategories.newcat"),
             swoopHolidaysButton = $x("//li[@class='MoreCategories']//a[@href='/category/24/dasveneba']"),
             swoopSportCategory = $(byAttribute("cat_id", "CatId-7")),
+            swoopFoodCategory = $(byAttribute("cat_id", "CatId-3")),
             swoopCarSchoolButton = $(byAttribute("href", "/category/282/avtosamyaro/avtoskola"));
 }
