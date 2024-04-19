@@ -1,4 +1,4 @@
-package ge.tbcacad.pages.swoop;
+package ge.tbcacad.pages.common;
 
 import com.codeborne.selenide.SelenideElement;
 

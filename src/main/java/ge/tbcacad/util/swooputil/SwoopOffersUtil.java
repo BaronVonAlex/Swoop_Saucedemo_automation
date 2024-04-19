@@ -17,8 +17,8 @@ public class SwoopOffersUtil {
         List<Double> offerPrices = new ArrayList<>();
         Set<Double> uniquePrices = new HashSet<>();
 
-        if (swoopHolidayPage.lastPage.exists()) {
-            swoopHolidayPage.lastPage.click();
+        if (swoopHolidayPage.lastPageButton.exists()) {
+            swoopHolidayPage.lastPageButton.click();
             String currentURL = WebDriverRunner.url();
             int pageNumber = extractPageNumber(currentURL);
 

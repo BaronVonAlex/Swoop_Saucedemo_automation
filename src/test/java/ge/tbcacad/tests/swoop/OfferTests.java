@@ -2,9 +2,12 @@ package ge.tbcacad.tests.swoop;
 
 import com.codeborne.selenide.Configuration;
 import ge.tbcacad.data.swoop.SwoopDataProvider;
-import ge.tbcacad.steps.swoop.CommonSteps;
-import ge.tbcacad.steps.swoop.SwoopHolidaySteps;
-import ge.tbcacad.steps.swoop.SwoopHomeSteps;
+import ge.tbcacad.pages.common.CommonPage;
+import ge.tbcacad.pages.swoop.*;
+import ge.tbcacad.pages.tnet.TnetLoginPage;
+import ge.tbcacad.steps.common.CommonSteps;
+import ge.tbcacad.steps.swoop.*;
+import ge.tbcacad.steps.tnet.TnetLoginSteps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.AfterClass;
@@ -14,28 +17,45 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.open;
+import static ge.tbcacad.data.Constants.AUTH_EXP_TXT;
 import static ge.tbcacad.data.Constants.SWOOP_LINK;
+import static org.openqa.selenium.devtools.v85.browser.Browser.close;
 
 @Epic("Swoop tests")
 @Feature("Offers, Filter, Sharing and Favorite offer functionality test")
 public class OfferTests {
     protected static CommonSteps commonSteps;
+    protected static CommonPage commonPage;
     protected static SwoopHomeSteps swoopHomeSteps;
+    protected static SwoopHomePage swoopHomePage;
     protected static SwoopHolidaySteps swoopHolidaySteps;
+    protected static SwoopHolidayPage swoopHolidayPage;
+    protected static SwoopCarSchoolSteps swoopCarSchoolSteps;
+    protected static SwoopCarSchoolPage swoopCarSchoolPage;
+    protected static TnetLoginSteps tnetLoginSteps;
+    protected static TnetLoginPage tnetLoginPage;
     private SoftAssert softAssert;
 
     @BeforeTest
     public void setUp() {
         commonSteps = new CommonSteps();
+        commonPage = new CommonPage();
         swoopHomeSteps = new SwoopHomeSteps();
+        swoopHomePage = new SwoopHomePage();
         swoopHolidaySteps = new SwoopHolidaySteps();
+        swoopHolidayPage = new SwoopHolidayPage();
+        swoopCarSchoolSteps = new SwoopCarSchoolSteps();
+        swoopCarSchoolPage = new SwoopCarSchoolPage();
+        tnetLoginSteps = new TnetLoginSteps();
+        tnetLoginPage = new TnetLoginPage();
         softAssert = new SoftAssert();
+
+        Configuration.browserSize = "1920x1080";
+        Configuration.pageLoadTimeout = 10000;
     }
 
     @BeforeMethod
     public void setUpWebsite() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.pageLoadTimeout = 10000;
         open(SWOOP_LINK);
         commonSteps.acceptCookies();
     }
@@ -43,20 +63,31 @@ public class OfferTests {
     @Test(dataProvider = "SwoopRangeDP", dataProviderClass = SwoopDataProvider.class,
             description = "navigate to Holiday Page, pick low and high bounds, then validate if all offers are within range.")
     public void rangeTest(String lowBound, String highBound) {
-        swoopHomeSteps.clickOnHolidayBtn();
+        commonSteps.click(swoopHomePage.swoopHolidaysButton);
         swoopHolidaySteps
                 .chooseLowerBound(lowBound)
                 .chooseHigherBound(highBound)
                 .clickOnSearchBtn();
-
         softAssert.assertTrue(swoopHolidaySteps.priceRangeCheck(swoopHolidaySteps.getOfferPrices(), lowBound, highBound));
 
         swoopHolidaySteps.scrollUpToBlinks();
-        Configuration.holdBrowserOpen = true;
+    }
+
+    @Test(description = "From one of categories page, add first item to favorite list and verify if it takes us to Login page.")
+    public void favouriteOfferTest() {
+        commonSteps.click(swoopHomePage.swoopCategoryButton);
+        swoopHomeSteps
+                .hoverOverCategory()
+                .clickOnCarSchool();
+        swoopCarSchoolSteps.addToFavoriteList();
+        softAssert.assertEquals(tnetLoginSteps.getPageName(), AUTH_EXP_TXT);
+        commonSteps.goBackwards();
+
     }
 
     @AfterClass
     public void tearDown() {
         softAssert.assertAll();
+        close();
     }
 }

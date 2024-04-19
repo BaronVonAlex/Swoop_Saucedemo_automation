@@ -4,7 +4,7 @@ import org.testng.annotations.DataProvider;
 
 public class SwoopDataProvider {
     @DataProvider(name = "SwoopRangeDP")
-    public Object[][] rangeValues(){
+    public Object[][] rangeValues() {
         return new Object[][]{
                 {"50", "75"},
                 {"75", "100"},
