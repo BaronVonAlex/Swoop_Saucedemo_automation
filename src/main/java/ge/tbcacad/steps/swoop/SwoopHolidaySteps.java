@@ -4,6 +4,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import ge.tbcacad.pages.swoop.SwoopHolidayPage;
 import ge.tbcacad.util.swooputil.SwoopOffersUtil;
 import io.qameta.allure.Step;
+import org.testng.annotations.DataProvider;
 
 import java.util.List;
 
@@ -51,5 +52,18 @@ public class SwoopHolidaySteps {
     @Step("Get all offer prices")
     public List<Double> getOfferPrices(){
         return SwoopOffersUtil.extractPricesFromElements(swoopHolidayPage.holidayOfferPrices);
+    }
+
+    @Step("Check if all items are within price range")
+    public boolean priceRangeCheck(List<Double> prices, String lowerBound, String upperBound) {
+        // Iterate through each price in the list
+        for (Double price : prices) {
+            // Check if the price is not within the specified range
+            if (price < Double.parseDouble(lowerBound) || price > Double.parseDouble(upperBound)) {
+                System.out.println("Price that was out of Price range: " + price);
+                return false; // Return false if any price falls outside the range
+            }
+        }
+        return true; // Return true if all prices are within the range
     }
 }

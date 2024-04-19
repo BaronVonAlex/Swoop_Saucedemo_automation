@@ -14,7 +14,8 @@ public class SwoopHolidayPage {
     categoryReblinks = $(".category-reblinks"),
     nextPageButton = $(byAttribute("src", "/Images/NewDesigneImg/categoryIn/arrow-01.png")),
     previousPageButton = $(byAttribute("src", "/Images/NewDesigneImg/categoryIn/arrow-02.png")),
-    lastPage = $x("//div[@class='pagination']//img[@src='/Images/NewDesigneImg/categoryIn/arrow-03.png']");
+    lastPage = $x("//div[@class='pagination']//img[@src='/Images/NewDesigneImg/categoryIn/arrow-03.png']"),
+    lastPageButton = $(".pagination").$(byAttribute("src", "/Images/NewDesigneImg/categoryIn/arrow-03.png"));
 
     public ElementsCollection holidayOfferPrices = $$x("//p[@class='deal-voucher-price'][1]");
 }

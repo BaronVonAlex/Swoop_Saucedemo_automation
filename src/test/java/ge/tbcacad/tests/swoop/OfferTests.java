@@ -2,16 +2,12 @@ package ge.tbcacad.tests.swoop;
 
 import com.codeborne.selenide.Configuration;
 import ge.tbcacad.data.swoop.SwoopDataProvider;
-import ge.tbcacad.pages.swoop.SwoopHolidayPage;
-import ge.tbcacad.pages.swoop.SwoopHomePage;
 import ge.tbcacad.steps.swoop.CommonSteps;
 import ge.tbcacad.steps.swoop.SwoopHolidaySteps;
 import ge.tbcacad.steps.swoop.SwoopHomeSteps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.aspectj.lang.annotation.Before;
-import org.checkerframework.checker.units.qual.C;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -29,7 +25,7 @@ public class OfferTests {
     private SoftAssert softAssert;
 
     @BeforeTest
-    public void setUp(){
+    public void setUp() {
         commonSteps = new CommonSteps();
         swoopHomeSteps = new SwoopHomeSteps();
         swoopHolidaySteps = new SwoopHolidaySteps();
@@ -37,13 +33,14 @@ public class OfferTests {
     }
 
     @BeforeMethod
-    public void setUpWebsite(){
+    public void setUpWebsite() {
         Configuration.browserSize = "1920x1080";
+        Configuration.pageLoadTimeout = 10000;
         open(SWOOP_LINK);
         commonSteps.acceptCookies();
     }
 
-    @Test(dataProvider = "SwoopRangeDP",dataProviderClass = SwoopDataProvider.class,
+    @Test(dataProvider = "SwoopRangeDP", dataProviderClass = SwoopDataProvider.class,
             description = "navigate to Holiday Page, pick low and high bounds, then validate if all offers are within range.")
     public void rangeTest(String lowBound, String highBound) {
         swoopHomeSteps.clickOnHolidayBtn();
@@ -52,11 +49,14 @@ public class OfferTests {
                 .chooseHigherBound(highBound)
                 .clickOnSearchBtn();
 
-        for(Double doite : swoopHolidaySteps.getOfferPrices()){
-            System.out.println(doite);
-        }
+        softAssert.assertTrue(swoopHolidaySteps.priceRangeCheck(swoopHolidaySteps.getOfferPrices(), lowBound, highBound));
 
         swoopHolidaySteps.scrollUpToBlinks();
         Configuration.holdBrowserOpen = true;
+    }
+
+    @AfterClass
+    public void tearDown() {
+        softAssert.assertAll();
     }
 }
