@@ -17,8 +17,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.open;
-import static ge.tbcacad.data.Constants.AUTH_EXP_TXT;
-import static ge.tbcacad.data.Constants.SWOOP_LINK;
+import static ge.tbcacad.data.Constants.*;
 import static org.openqa.selenium.devtools.v85.browser.Browser.close;
 
 @Epic("Swoop tests")
@@ -50,7 +49,7 @@ public class OfferTests {
         tnetLoginPage = new TnetLoginPage();
         softAssert = new SoftAssert();
 
-        Configuration.browserSize = "1920x1080";
+        Configuration.browserSize = RSLT_1080P;
         Configuration.pageLoadTimeout = 10000;
     }
 
@@ -73,16 +72,24 @@ public class OfferTests {
         swoopHolidaySteps.scrollUpToBlinks();
     }
 
-    @Test(description = "From one of categories page, add first item to favorite list and verify if it takes us to Login page.")
+    @Test(description = "From one of categories page, add first item to favorite list and verify if it takes us to Login page and vouchers are not sold")
     public void favouriteOfferTest() {
         commonSteps.click(swoopHomePage.swoopCategoryButton);
         swoopHomeSteps
                 .hoverOverCategory()
                 .clickOnCarSchool();
+        softAssert.assertTrue(swoopCarSchoolSteps.getVoucherLimit() < 100, VOUCHER_ASRT_MSG);
         swoopCarSchoolSteps.addToFavoriteList();
         softAssert.assertEquals(tnetLoginSteps.getPageName(), AUTH_EXP_TXT);
-        commonSteps.goBackwards();
+    }
 
+    @Test(description = "Choose any sub-category and pick any item, verify if Facebook login-page shows up.")
+    public void shareOfferTest() {
+        commonSteps.click(swoopHomePage.swoopCategoryButton);
+        swoopHomeSteps
+                .hoverOverCategory()
+                .clickOnCarSchool();
+        commonSteps.click(swoopCarSchoolPage.carOffer);
     }
 
     @AfterClass
