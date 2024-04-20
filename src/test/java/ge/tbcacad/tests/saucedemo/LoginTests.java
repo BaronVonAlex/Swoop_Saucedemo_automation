@@ -3,12 +3,12 @@ package ge.tbcacad.tests.saucedemo;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.testng.ScreenShooter;
-import ge.tbcacad.util.allurelistener.AllureListener;
-import ge.tbcacad.util.allurelistener.CustomTestListener;
 import ge.tbcacad.pages.saucedemo.SaucedemoHomePage;
 import ge.tbcacad.pages.saucedemo.SaucedemoLoginPage;
 import ge.tbcacad.steps.saucedemo.SaucedemoHomeSteps;
 import ge.tbcacad.steps.saucedemo.SaucedemoLoginSteps;
+import ge.tbcacad.util.allurelistener.AllureListener;
+import ge.tbcacad.util.allurelistener.CustomTestListener;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -65,7 +65,7 @@ public class LoginTests {
 
     @Story("Image Loading tests")
     @Test(description = "Make query from Database to get desired credentials and validate if all images are loaded after login.",
-        groups = "SauceDemoLogin")
+            groups = "SauceDemoLogin")
     public void successfulLoginTest() throws SQLException {
         saucedemoLoginSteps
                 .inputLoginWithDB(1)
