@@ -16,4 +16,8 @@ public class Constants {
     public static final String PAYMENT_EXP_TXT = "1";
     public static final String HIGH_RANGE_PRICE = "250";
     public static final String LOW_RANGE_PRICE = "150";
+    public static final String SAUCEDEMO_LINK = "https://www.saucedemo.com/";
+    public static final String SAD_FACE_ERR_MSG = "Epic sadface: Sorry, this user has been locked out.";
+    public static final String SAD_FACE_ERR_FAIL = "Sadface Error message didn't appear";
+    public static final String RED_X_ERR_MSG = "RED X Icon doesn't appear on Error";
 }
