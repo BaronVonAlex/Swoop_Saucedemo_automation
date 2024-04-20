@@ -8,8 +8,10 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class SaucedemoHomePage {
     public ElementsCollection
-        inventoryItemDiv = $$(".inventory_item");
+            inventoryItemDiv = $$(".inventory_item");
 
     public SelenideElement
-        inventoryImage = $("img.inventory_item_img");
+            inventoryImage = $("img.inventory_item_img"),
+            burgerMenuBtn = $("#react-burger-menu-btn"),
+            logoutBtn = $("#logout_sidebar_link");
 }

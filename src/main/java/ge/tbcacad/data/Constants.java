@@ -20,4 +20,6 @@ public class Constants {
     public static final String SAD_FACE_ERR_MSG = "Epic sadface: Sorry, this user has been locked out.";
     public static final String SAD_FACE_ERR_FAIL = "Sadface Error message didn't appear";
     public static final String RED_X_ERR_MSG = "RED X Icon doesn't appear on Error";
+    public static final String IMG_LOAD_ERR = "All images are not properly loaded";
+    public static final String PROPER_IMG_ERR_MSG = "Offers were not loaded with Appropriate Image";
 }

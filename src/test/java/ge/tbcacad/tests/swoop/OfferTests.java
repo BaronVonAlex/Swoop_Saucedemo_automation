@@ -1,7 +1,11 @@
 package ge.tbcacad.tests.swoop;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import com.codeborne.selenide.testng.ScreenShooter;
 import ge.tbcacad.data.swoop.SwoopDataProvider;
+import ge.tbcacad.util.allurelistener.AllureListener;
+import ge.tbcacad.util.allurelistener.CustomTestListener;
 import ge.tbcacad.pages.commonpage.CommonPage;
 import ge.tbcacad.pages.swoop.SwoopCarSchoolPage;
 import ge.tbcacad.pages.swoop.SwoopHolidayPage;
@@ -16,10 +20,9 @@ import ge.tbcacad.steps.swoop.SwoopOfferSteps;
 import ge.tbcacad.steps.tnet.TnetLoginSteps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import io.qameta.allure.Story;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -28,6 +31,7 @@ import static org.openqa.selenium.devtools.v85.browser.Browser.close;
 
 @Epic("Swoop tests")
 @Feature("Offers, Filter, Sharing and Favorite offer functionality test")
+@Listeners({AllureListener.class, CustomTestListener.class, ScreenShooter.class})
 public class OfferTests {
     protected static CommonSteps commonSteps;
     protected static CommonPage commonPage;
@@ -43,7 +47,7 @@ public class OfferTests {
     protected static TnetLoginPage tnetLoginPage;
     private SoftAssert softAssert;
 
-    @BeforeTest
+    @BeforeTest(groups = "SwoopRegression")
     public void setUp() {
         commonSteps = new CommonSteps();
         commonPage = new CommonPage();
@@ -58,20 +62,24 @@ public class OfferTests {
         tnetLoginSteps = new TnetLoginSteps();
         tnetLoginPage = new TnetLoginPage();
 
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+
         softAssert = new SoftAssert();
 
         Configuration.browserSize = RSLT_1080P;
         Configuration.pageLoadTimeout = 10000;
     }
 
-    @BeforeMethod
+    @BeforeMethod(groups = "SwoopRegression")
     public void setUpWebsite() {
         open(SWOOP_LINK);
         commonSteps.acceptCookies();
     }
 
+    @Story("Price range and Filter validation")
     @Test(dataProvider = "SwoopRangeDP", dataProviderClass = SwoopDataProvider.class,
-            description = "navigate to Holiday Page, pick low and high bounds, then validate if all offers are within range.")
+            description = "navigate to Holiday Page, pick low and high bounds, then validate if all offers are within range.",
+            groups = "SwoopRegression")
     public void rangeTest(String lowBound, String highBound) {
         commonSteps.click(swoopHomePage.swoopHolidaysButton);
         swoopHolidaySteps
@@ -82,7 +90,9 @@ public class OfferTests {
         swoopHolidaySteps.scrollUpToBlinks();
     }
 
-    @Test(description = "From one of categories page, add first item to favorite list and verify if it takes us to Login page and vouchers are not sold")
+    @Story("Favorite item button and Login popup, request tests")
+    @Test(description = "From one of categories page, add first item to favorite list and verify if it takes us to Login page and vouchers are not sold",
+            groups = "SwoopRegression")
     public void favouriteOfferTest() {
         commonSteps.click(swoopHomePage.swoopCategoryButton);
         swoopHomeSteps
@@ -93,7 +103,9 @@ public class OfferTests {
         softAssert.assertEquals(tnetLoginSteps.getPageName(), AUTH_EXP_TXT);
     }
 
-    @Test(description = "Choose any sub-category and pick any item, verify if Facebook login-page shows up.")
+    @Story("Favorite item button and Login popup, request tests")
+    @Test(description = "Choose any sub-category and pick any item, verify if Facebook login-page shows up.",
+            groups = "SwoopRegression")
     public void shareOfferTest() {
         commonSteps.click(swoopHomePage.swoopCategoryButton);
         swoopHomeSteps
@@ -105,7 +117,9 @@ public class OfferTests {
         softAssert.assertTrue(swoopOfferSteps.switchToFBWindow().contains(FB_LOGIN_LINK), FB_LOG_ERR_MSG);
     }
 
-    @Test(description = "Find offer that has 0 sold, validate that Voucher bas has not moved at all(Value is at 0)")
+    @Story("Voucher bar tests")
+    @Test(description = "Find offer that has 0 sold, validate that Voucher bas has not moved at all(Value is at 0)",
+            groups = "SwoopRegression")
     public void noOffersSoldTest() {
         commonSteps.click(swoopHomePage.swoopCategoryButton);
         swoopHomeSteps
@@ -114,7 +128,9 @@ public class OfferTests {
         softAssert.assertEquals(swoopCarSchoolSteps.getOfferWithZeroSold(), 0.0);
     }
 
-    @Test
+    @Story("Price range and Filter validation")
+    @Test(description = "Change Location, Payment and price filters, then clean and validate that they are indeed empty",
+            groups = "SwoopRegression")
     public void clearFilterTest() {
         commonSteps.click(swoopHomePage.swoopCategoryButton);
         swoopHomeSteps

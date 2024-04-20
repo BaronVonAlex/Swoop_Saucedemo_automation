@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import static ge.tbcacad.data.dbconnection.MSSQLConnectoion.connect;
 
 public class DatabaseSteps {
-    public static String getLogin(int ID) throws SQLException {
+    public static String getLogin(int ID){
         String selectSQL = """
                 SELECT Login FROM SaucedemoCredentials WHERE ID = ?
                 """;
-        try (Connection conn = connect()){
+        try (Connection conn = connect()) {
             PreparedStatement selectStmt = conn.prepareStatement(selectSQL);
             selectStmt.setInt(1, ID);
             try (ResultSet resultSet = selectStmt.executeQuery()) {
@@ -27,11 +27,11 @@ public class DatabaseSteps {
         }
     }
 
-    public static String getPassword(int ID) throws SQLException {
+    public static String getPassword(int ID){
         String selectSQL = """
                 SELECT Password FROM SaucedemoCredentials WHERE ID = ?
                 """;
-        try (Connection conn = connect()){
+        try (Connection conn = connect()) {
             PreparedStatement selectStmt = conn.prepareStatement(selectSQL);
             selectStmt.setInt(1, ID);
             try (ResultSet resultSet = selectStmt.executeQuery()) {
