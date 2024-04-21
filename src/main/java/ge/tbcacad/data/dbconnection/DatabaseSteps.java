@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import static ge.tbcacad.data.dbconnection.MSSQLConnectoion.connect;
 
 public class DatabaseSteps {
-    public static String getLogin(int ID){
+    public static String getLogin(int ID) {
         String selectSQL = """
                 SELECT Login FROM SaucedemoCredentials WHERE ID = ?
                 """;
@@ -27,7 +27,7 @@ public class DatabaseSteps {
         }
     }
 
-    public static String getPassword(int ID){
+    public static String getPassword(int ID) {
         String selectSQL = """
                 SELECT Password FROM SaucedemoCredentials WHERE ID = ?
                 """;

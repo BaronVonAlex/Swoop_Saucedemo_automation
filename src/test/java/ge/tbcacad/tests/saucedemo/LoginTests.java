@@ -1,6 +1,7 @@
 package ge.tbcacad.tests.saucedemo;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.testng.ScreenShooter;
 import ge.tbcacad.pages.saucedemo.SaucedemoHomePage;
@@ -13,6 +14,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
@@ -32,6 +36,7 @@ public class LoginTests {
     protected static SaucedemoHomePage saucedemoHomePage;
     protected static SaucedemoHomeSteps saucedemoHomeSteps;
     private SoftAssert softAssert;
+    private WebDriver driver;
 
     @BeforeTest(groups = "SauceDemoLogin")
     public void setUp() {
@@ -39,6 +44,16 @@ public class LoginTests {
         saucedemoLoginSteps = new SaucedemoLoginSteps();
         saucedemoHomePage = new SaucedemoHomePage();
         saucedemoHomeSteps = new SaucedemoHomeSteps();
+
+        // Due to Chrome Security Nature, We have to disable Chrome Browser Alerts for Tests' uninterrupted work.
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-popup-blocking");
+
+        Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        WebDriverRunner.setWebDriver(driver);
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
@@ -109,11 +124,11 @@ public class LoginTests {
         saucedemoHomeSteps
                 .clickBurgerBtn()
                 .clickLogoutBtn();
-        softAssert.assertEquals(saucedemoLoginSteps.getLoginValue(), VAL_EXP_TXT);
-        softAssert.assertEquals(saucedemoLoginSteps.getPasswordValue(), VAL_EXP_TXT);
+        softAssert.assertEquals(saucedemoLoginSteps.getLoginValue(), VAL_EXP_TXT, LOG_INPUT_ERR_MSG);
+        softAssert.assertEquals(saucedemoLoginSteps.getPasswordValue(), VAL_EXP_TXT, PASS_INPUT_ERR_MSG);
     }
 
-    @AfterClass
+    @AfterTest(groups = "SauceDemoLogin")
     public void tearDown() {
         softAssert.assertAll();
         close();

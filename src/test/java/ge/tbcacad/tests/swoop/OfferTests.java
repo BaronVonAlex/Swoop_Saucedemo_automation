@@ -4,8 +4,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.testng.ScreenShooter;
 import ge.tbcacad.data.swoop.SwoopDataProvider;
-import ge.tbcacad.util.allurelistener.AllureListener;
-import ge.tbcacad.util.allurelistener.CustomTestListener;
 import ge.tbcacad.pages.commonpage.CommonPage;
 import ge.tbcacad.pages.swoop.SwoopCarSchoolPage;
 import ge.tbcacad.pages.swoop.SwoopHolidayPage;
@@ -18,6 +16,8 @@ import ge.tbcacad.steps.swoop.SwoopHolidaySteps;
 import ge.tbcacad.steps.swoop.SwoopHomeSteps;
 import ge.tbcacad.steps.swoop.SwoopOfferSteps;
 import ge.tbcacad.steps.tnet.TnetLoginSteps;
+import ge.tbcacad.util.allurelistener.AllureListener;
+import ge.tbcacad.util.allurelistener.CustomTestListener;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -86,7 +86,7 @@ public class OfferTests {
                 .chooseLowerBound(lowBound)
                 .chooseHigherBound(highBound)
                 .clickOnSearchBtn();
-        softAssert.assertTrue(swoopHolidaySteps.priceRangeCheck(swoopHolidaySteps.getOfferPrices(), lowBound, highBound));
+        softAssert.assertTrue(swoopHolidaySteps.priceRangeCheck(swoopHolidaySteps.getOfferPrices(), lowBound, highBound), PRICE_RANGE_ERR_MSG);
         swoopHolidaySteps.scrollUpToBlinks();
     }
 
@@ -100,7 +100,7 @@ public class OfferTests {
                 .clickOnCarSchool();
         softAssert.assertTrue(swoopCarSchoolSteps.getVoucherLimit() < 100, VOUCHER_ASRT_MSG);
         swoopCarSchoolSteps.addToFavoriteList();
-        softAssert.assertEquals(tnetLoginSteps.getPageName(), AUTH_EXP_TXT);
+        softAssert.assertEquals(tnetLoginSteps.getPageName(), AUTH_EXP_TXT, AUTH_PAGE_ERR_MSG);
     }
 
     @Story("Favorite item button and Login popup, request tests")
@@ -125,7 +125,7 @@ public class OfferTests {
         swoopHomeSteps
                 .hoverOverCategory()
                 .clickOnCarSchool();
-        softAssert.assertEquals(swoopCarSchoolSteps.getOfferWithZeroSold(), 0.0);
+        softAssert.assertEquals(swoopCarSchoolSteps.getOfferWithZeroSold(), 0.0, ZERO_SOLD_ERR_MSG);
     }
 
     @Story("Price range and Filter validation")
@@ -151,7 +151,7 @@ public class OfferTests {
         softAssert.assertEquals(swoopCarSchoolPage.paymentMethodRadio.getValue(), PAYMENT_EXP_TXT, PAYMENT_ERR_MSG);
     }
 
-    @AfterClass
+    @AfterTest(groups = "SwoopRegression")
     public void tearDown() {
         softAssert.assertAll();
         close();
