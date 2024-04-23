@@ -17,7 +17,7 @@ public class SwoopCarSchoolSteps {
         return Double.parseDouble(swoopCarSchoolPage.firstOfferVoucherLimit.getAttribute("data-width"));
     }
 
-    @Step("Find element has has 0 sold value")
+    @Step("Find element that has 0 sold value")
     public Double getOfferWithZeroSold() {
         return Double.parseDouble(swoopCarSchoolPage.voucherDiagram.getAttribute("data-width"));
     }

@@ -11,8 +11,9 @@ public class SaucedemoHomeSteps {
 
     @Step("After Authentication validate that all images are loaded for offers")
     public boolean checkInvLoading() {
-        for (SelenideElement offer : saucedemoHomePage.inventoryItemDiv) {
-            if (saucedemoHomePage.inventoryImage == null) {
+        for (SelenideElement inventoryItem : saucedemoHomePage.inventoryItemDiv) {
+            SelenideElement inventoryImage = inventoryItem.$x(saucedemoHomePage.inventoryImageXpathExpression);
+            if (!inventoryImage.exists()) {
                 return false;
             }
         }
@@ -22,7 +23,7 @@ public class SaucedemoHomeSteps {
     @Step("Validate if Offers have appropriate images attached to it, fail test if they have 'Dog' image (fail-case)")
     public boolean checkProperImages() {
         for (SelenideElement offer : saucedemoHomePage.inventoryItemDiv) {
-            SelenideElement inventoryImage = saucedemoHomePage.inventoryImage;
+            SelenideElement inventoryImage = offer.$x(saucedemoHomePage.inventoryImageXpathExpression);
             if (Objects.requireNonNull(inventoryImage.getAttribute("src")).contains("/static/media/sl-404.168b1cce.jpg")) {
                 return false;
             }

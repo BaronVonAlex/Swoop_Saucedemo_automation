@@ -37,6 +37,18 @@ public class SaucedemoLoginSteps {
         return saucedemoLoginPage.redXIcon.exists();
     }
 
+    @Step("Check if red X icon also appeared for login field")
+    public boolean getLoginRedXBoolean() {
+        return saucedemoLoginPage.loginXIcon.exists();
+    }
+
+
+    @Step("Check if red X icon also appeared for password field")
+    public boolean getPasswordRedXBoolean() {
+        return saucedemoLoginPage.passXIcon.exists();
+    }
+
+
     @Step("Return Value from Login input field")
     public String getLoginValue() {
         return saucedemoLoginPage.loginInputField.getValue();

@@ -90,7 +90,7 @@ public class OfferTests {
         swoopHolidaySteps.scrollUpToBlinks();
     }
 
-    @Story("Favorite item button and Login popup, request tests")
+    @Story("Favorite item button, Login popup and request tests")
     @Test(description = "From one of categories page, add first item to favorite list and verify if it takes us to Login page and vouchers are not sold",
             groups = "SwoopRegression")
     public void favouriteOfferTest() {
@@ -103,7 +103,7 @@ public class OfferTests {
         softAssert.assertEquals(tnetLoginSteps.getPageName(), AUTH_EXP_TXT, AUTH_PAGE_ERR_MSG);
     }
 
-    @Story("Favorite item button and Login popup, request tests")
+    @Story("Share offer and Facebook login popup tests")
     @Test(description = "Choose any sub-category and pick any item, verify if Facebook login-page shows up.",
             groups = "SwoopRegression")
     public void shareOfferTest() {

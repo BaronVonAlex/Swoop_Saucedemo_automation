@@ -31,7 +31,7 @@ public class SwoopHolidaySteps {
         return this;
     }
 
-    @Step("Scroll up to reblinks btn, to display upper navbar")
+    @Step("Scroll up to display upper navbar")
     public SwoopHolidaySteps scrollUpToBlinks() {
         executeJavaScript(JS_SCROLL_MIDDLE, swoopHolidayPage.categoryReblinks);
         return this;
@@ -42,7 +42,7 @@ public class SwoopHolidaySteps {
         return SwoopOffersUtil.extractPricesFromElements(swoopHolidayPage.holidayOfferPrices);
     }
 
-    @Step("Check if all items are within price range of {0}, {1}")
+    @Step("Check if all items are within price range of low : {1}, high : {2}")
     public boolean priceRangeCheck(List<Double> prices, String lowerBound, String upperBound) {
         for (Double price : prices) {
             if (price < Double.parseDouble(lowerBound) || price > Double.parseDouble(upperBound)) {

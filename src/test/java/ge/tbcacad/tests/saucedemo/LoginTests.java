@@ -99,6 +99,8 @@ public class LoginTests {
                 .loginWithButton();
         softAssert.assertEquals(saucedemoLoginSteps.getSadFaceErrorMsg(), SAD_FACE_ERR_MSG, SAD_FACE_ERR_FAIL);
         softAssert.assertTrue(saucedemoLoginSteps.getRedXBoolean(), RED_X_ERR_MSG);
+        softAssert.assertTrue(saucedemoLoginSteps.getLoginRedXBoolean(), RED_LoginX_ERR_MSG);
+        softAssert.assertTrue(saucedemoLoginSteps.getPasswordRedXBoolean(), RED_PasswordX_ERR_MSG);
     }
 
     @Story("Image Loading tests")
