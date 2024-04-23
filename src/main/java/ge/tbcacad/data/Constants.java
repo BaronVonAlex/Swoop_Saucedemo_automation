@@ -28,5 +28,7 @@ public class Constants {
     public static final String PASS_INPUT_ERR_MSG = "Logout Test: Password Input is not empty.";
     public static final String ZERO_SOLD_ERR_MSG = "Vouchers are not at 0";
     public static final String AUTH_PAGE_ERR_MSG = "Button didn't take user to Auth. Webpage.";
-    public static final String PRICE_RANGE_ERR_MSG = "Prices are not within filter range";
+    public static final String PRICE_RANGE_ERR_MSG = "Prices are not within filter range.";
+    public static final String MIN_BOUND = " | Min Allowed - ";
+    public static final String MAX_BOUND = " | Max Allowed - ";
 }

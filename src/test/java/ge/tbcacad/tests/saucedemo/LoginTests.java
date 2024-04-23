@@ -20,8 +20,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-import java.sql.SQLException;
-
 import static com.codeborne.selenide.Selenide.open;
 import static ge.tbcacad.data.Constants.*;
 import static org.openqa.selenium.devtools.v122.browser.Browser.close;
@@ -81,7 +79,7 @@ public class LoginTests {
     @Story("Image Loading tests")
     @Test(description = "Make query from Database to get desired credentials and validate if all images are loaded after login.",
             groups = "SauceDemoLogin")
-    public void successfulLoginTest() throws SQLException {
+    public void successfulLoginTest() {
         saucedemoLoginSteps
                 .inputLoginWithDB(1)
                 .inputPasswordWithDB(1)
@@ -92,7 +90,7 @@ public class LoginTests {
     @Story("Authentication / Logout Tests")
     @Test(description = "Login with locked out user and validate that proper Messages and Icons show up on login page.",
             groups = "SauceDemoLogin")
-    public void bannedUserLoginTest() throws SQLException {
+    public void bannedUserLoginTest() {
         saucedemoLoginSteps
                 .inputLoginWithDB(2)
                 .inputPasswordWithDB(2)
@@ -106,7 +104,7 @@ public class LoginTests {
     @Story("Image Loading tests")
     @Test(description = "Login with Problematic user and validate if proper images load, or load at all.",
             groups = "SauceDemoLogin")
-    public void problematicLoginTest() throws SQLException {
+    public void problematicLoginTest() {
         saucedemoLoginSteps
                 .inputLoginWithDB(3)
                 .inputPasswordWithDB(3)
@@ -118,7 +116,7 @@ public class LoginTests {
     @Story("Authentication / Logout Tests")
     @Test(description = "Login with standard user and then logout, Validate if input fields are empty.",
             groups = "SauceDemoLogin")
-    public void logOutTest() throws SQLException {
+    public void logOutTest() {
         saucedemoLoginSteps
                 .inputLoginWithDB(1)
                 .inputPasswordWithDB(1)

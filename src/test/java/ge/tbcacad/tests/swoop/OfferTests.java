@@ -86,7 +86,7 @@ public class OfferTests {
                 .chooseLowerBound(lowBound)
                 .chooseHigherBound(highBound)
                 .clickOnSearchBtn();
-        softAssert.assertTrue(swoopHolidaySteps.priceRangeCheck(swoopHolidaySteps.getOfferPrices(), lowBound, highBound), PRICE_RANGE_ERR_MSG);
+        softAssert.assertTrue(swoopHolidaySteps.priceRangeCheck(swoopHolidaySteps.getOfferPrices(), lowBound, highBound), PRICE_RANGE_ERR_MSG + MIN_BOUND + lowBound + MAX_BOUND + highBound);
         swoopHolidaySteps.scrollUpToBlinks();
     }
 

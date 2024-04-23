@@ -4,19 +4,17 @@ import ge.tbcacad.data.dbconnection.DatabaseSteps;
 import ge.tbcacad.pages.saucedemo.SaucedemoLoginPage;
 import io.qameta.allure.Step;
 
-import java.sql.SQLException;
-
 public class SaucedemoLoginSteps {
     SaucedemoLoginPage saucedemoLoginPage = new SaucedemoLoginPage();
 
     @Step("Input login details from Database with ID : {0}")
-    public SaucedemoLoginSteps inputLoginWithDB(int ID) throws SQLException {
+    public SaucedemoLoginSteps inputLoginWithDB(int ID) {
         saucedemoLoginPage.loginInputField.sendKeys(DatabaseSteps.getLogin(ID));
         return this;
     }
 
     @Step("Input password details from Databasewith ID : {0}")
-    public SaucedemoLoginSteps inputPasswordWithDB(int ID) throws SQLException {
+    public SaucedemoLoginSteps inputPasswordWithDB(int ID) {
         saucedemoLoginPage.passwordInputField.sendKeys(DatabaseSteps.getPassword(ID));
         return this;
     }
