@@ -11,7 +11,7 @@ public class SwoopHomeSteps {
     @Step("Move to holiday page by clicking button")
     public SwoopHomeSteps clickOnHolidayBtn() {
         swoopHomePage.swoopHolidaysButton.click();
-        System.out.println("Text for 2nd conflict");
+        System.out.println("text for conflict");
         return this;
     }
 

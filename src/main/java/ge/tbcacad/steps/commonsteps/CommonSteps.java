@@ -31,7 +31,7 @@ public class CommonSteps {
     @Step("Scroll up to display hidden navbars.")
     public CommonSteps scrollUp() {
         executeJavaScript("window.scrollBy(0, -10);");
-        System.out.println("another text for conflict");
+        System.out.println("Fixed conflict");
         return this;
     }
 
