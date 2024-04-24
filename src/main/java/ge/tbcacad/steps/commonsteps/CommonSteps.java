@@ -34,7 +34,7 @@ public class CommonSteps {
         return this;
     }
 
-    @Step("go back to previous page")
+    @Step("go back to previous page.")
     public CommonSteps goBackwards() {
         back();
         return this;
