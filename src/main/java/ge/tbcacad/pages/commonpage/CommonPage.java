@@ -6,5 +6,5 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CommonPage {
     public SelenideElement cookieAcceptButton = $x("//div[@class='cookieButton']//div[@class='acceptCookie']");
-
+    public static final String conflict2 = "b";
 }

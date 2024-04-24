@@ -25,6 +25,7 @@ public class SwoopCarSchoolSteps {
     @Step("Change location of offers")
     public SwoopCarSchoolSteps changeLocation() {
         swoopCarSchoolPage.locationSelectorXpath.click();
+        System.out.println("text for another conflict");
         return this;
     }
 
