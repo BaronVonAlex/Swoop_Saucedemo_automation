@@ -37,28 +37,6 @@ This project involves creating and executing automated tests for two different w
     mvn clean install
     ```
 
-## Project Structure
-
-Project2
-│
-├── src
-│ ├── main
-│ │ └── java
-│ │ └── com
-│ │ └── yourusername
-│ │ ├── swoop
-│ │ │ ├── pages
-│ │ │ └── tests
-│ │ └── saucedemo
-│ │ ├── pages
-│ │ └── tests
-│ └── test
-│ └── resources
-│ └── testng.xml
-│
-├── pom.xml
-└── README.md
-
 ## Test Cases
 
 ### Swoop Tests
